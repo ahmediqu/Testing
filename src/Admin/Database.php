@@ -7,7 +7,7 @@ class Database
 {
 	
 	public function connect(){
-		$link = mysql_connect('localhost','root','','phpajaxcrud');
+		$link = mysqli_connect('localhost','root','','phpwithajaxcrud');
 		return $link;
 	}
 

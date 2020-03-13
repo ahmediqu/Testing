@@ -9,6 +9,7 @@ if ($page == 'addPost') {
 $post->insert();
 }elseif ($page =='getData') {
 	$showdata = $post->getData();
+	
 ?>
 <table class="table">
 	<thead>
@@ -46,9 +47,33 @@ $post->insert();
 	$post->delete();
 }
 elseif($page == 'editPost'){
-	$post->edit();
-
-
+	$editId = $_POST['edit_id'];
+	// echo $editId;
+	$row = $post->edit($editId);
+	$result = mysqli_fetch_assoc($row);
+	// echo $row['title'];
+	if(!empty($result)){
+?>
+<!-- Button trigger modal -->
+<form  method="post" id="form">
+	<div id="updatemsg"></div>
+	<input type="hidden" name="update_id" id="update_id" value="<?php echo $result['id'];?>">
+	<div class="form-group">
+		<label for="">Title</label>
+		<input type="text" value="<?php echo $result['title'];?>" id="edit_title" class="form-control" name="title">
+	</div>
+	<div class="form-group">
+		<label for="">Description</label>
+		<textarea name="description" id="edit_description" cols="5" rows="5" class="form-control"><?php echo $result['description'];?></textarea>
+	</div>
+</form>
+<?php
 }
-
+}elseif ($page == 'updatePost') {
+    $data['edit_title'] = $_POST['edit_title'];
+	$data['edit_description'] = $_POST['edit_description'];
+	$data['update_id'] = $_POST['update_id'];
+					 
+	$post->update($data);
+}
 ?>

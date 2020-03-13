@@ -55,11 +55,29 @@ class Post
 		}
 	}
 
-	public function edit(){
-		$edit_id = $_POST['edit_id'];
-		$data = "SELECT * FROM `posts` where `id`='$edit_id'";
+	public function edit($editId){
+		
+
+		$data = "SELECT * FROM `posts` where `id`='$editId'";
 		$result = mysqli_query(Database::connect(),$data);
 		return $result;
 	}
+
+	public function update($data){
+		
+$query = "UPDATE  posts set title='$data[edit_title]',description='$data[edit_description]' where id='$data[update_id]'";
+					  $result = mysqli_query(Database::connect(),$query);
+					 
+					 if(isset($result)){
+					 	echo "<div class='alert alert-success' role='alert'>
+					  Successfully Updated !!
+					</div>";
+					 }else{
+					 	echo "error";
+					 }
+				
+			}
+		
+	
 }
 ?>

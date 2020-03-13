@@ -47,7 +47,27 @@
 		</div>
 		<!-- Edit model -->
 		<!-- Modal -->
-
+<!-- Modal -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update Record</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="edit_data"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="update" class="btn btn-primary">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<script
@@ -127,7 +147,28 @@
 					});
 			});
 
-			
+			$(document).on("click","#update",function(e){
+					e.preventDefault();
+					var edit_title = $('#edit_title').val();
+					var edit_description = $('#edit_description').val();
+					var update_id = $('#update_id').val();
+					var update = $('#update').val();
+					$.ajax({
+						url: 'store.php?&page=updatePost',
+						type: 'post',
+						data:{
+							edit_title:edit_title,
+							edit_description:edit_description,
+							update_id:update_id,
+							update:update
+						},
+						success:function(data){
+							getData();
+							$('#updatemsg').html(data);
+						}
+					});
+					
+				});
 		</script>
 	</body>
 </html>
